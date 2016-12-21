@@ -38,7 +38,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'home',
+    'accounts',
 ]
+
+AUTH_USER_MODEL = 'accounts.ListUser'
+AUTHENTICATION_BACKENDS = (
+    'accounts.authentication.PasswordlessAuthenticationBackend',
+)
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -120,4 +126,37 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR,'../static/'))
+#STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR,'../static'))
+
+STATIC_ROOT = os.path.join(BASE_DIR,'../static')
+#STATICFILES_DIRS = (os.path.join(BASE_DIR,'study/static').replace('\\','/'))
+
+STATICFILES_DIRS = (os.path.join(BASE_DIR,'study','static'),)
+#STATIC_ROOT = os.path.abspath(os.path.join(BASE_DIR,'../static'))
+
+#print(STATIC_ROOT)
+#print(STATICFILES_DIRS)
+#print(BASE_DIR)
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+         'console': {
+             'level': 'DEBUG',
+             'class': 'logging.StreamHandler',
+          },
+     },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+         },
+     },
+     'root': {'level': 'INFO'},
+}
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'obeythetestinggoat@gmail.com'
+EMAIL_HOST_PASSWORD = os.environ.get('GMAIL_PASSWORD')
+EMAIL_USE_TLS = True

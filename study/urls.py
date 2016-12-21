@@ -16,8 +16,13 @@ Including another URLconf
 from django.conf.urls import url,include
 from django.contrib import admin
 from home import views
+from accounts import urls as account_urls
 urlpatterns = [
-    url(r'^$',views.home_page,name = 'home'),
+    url(r'^home/$',views.home,name = 'home'),
+    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'}),      
+
+    url(r'^$',views.home_page,name = 'home_page'),
     url(r'^about/',views.home_about,name = 'home_about'),
     url(r'^admin/', admin.site.urls),
+    url(r'^accounts/', include(account_urls)),
 ]
